@@ -1,0 +1,35 @@
+---
+title: "< STAT-5361 > HW#2-Exercises 3"
+author: "Hee-Seung, Kim"
+date: "September 13, 2018"
+output: pdf_document
+fontsize: 11pt
+documentclass: article
+knit: "bookdown::render_book('HW2-3_Hee.Rmd','bookdown::pdf_document2')"
+papersize: letter
+biblio-style: asa 
+---
+ 
+Explain how .Machine$double.xmax, .Machine$double.xmin, .Machine$double.eps, and .Machine$double.neg.eps are defined using the 64-bit double precision floating point arithmetic.
+
+
+1) Description
+(a) Machine() returns information on numeric characteristics of the machine R is running on, such as the largest double or integer and the machine's precision.
+(b) .Machine is a variable holding this information.
+
+2) .Machine$double.xmax <- the largest finite floating-point number. Typically, it is equal to (1 - neg.eps) * base^max.exp, but on some machines it is only the second, or perhaps third, largest number, being too small by 1 or 2 units in the last digit of the significand.
+```{r}
+.Machine$double.xmax
+```
+3) .Machine$double.xmin <- the smallest non-vanishing normalized floating-point power of the radix, i.e., base^min.exp.
+```{r}
+.Machine$double.xmin
+```
+4) .Machine$double.eps <- the smallest positive floating-point number x such that 1 + x != 1. It equals base^ulp.digits if either base is 2 or rounding is 0; otherwise, it is (base^ulp.digits) / 2
+```{r}
+.Machine$double.eps
+```
+5) .Machine$double.neg.eps <- a small positive floating-point number x such that 1 - x != 1. It equals base^neg.ulp.digits if base is 2 or round is 0; otherwise, it is (base^neg.ulp.digits) / 2. As neg.ulp.digits is bounded below by -(digits + 3), neg.eps may not be the smallest number that can alter 1 by subtraction.
+```{r}
+.Machine$double.neg.eps
+```
